@@ -7,7 +7,8 @@ description: |-
 
 # Resource `toggles_leapfrog`
 
-The leapfrog resource allows you to change a single value of two outputs in an alternating fashion.
+The leapfrog resource allows you to change a single value of two outputs in an alternating fashion. This is useful when
+you want to rotate a resource but always keep the previous version around as well.
 
 ## Example Usage
 
@@ -24,7 +25,7 @@ resource "google_service_account_key" "key_blue" {
   service_account_id = google_service_account.account.name
 
   keepers = {
-    rotation = toggle_leapfrog.toggle.blue
+    rotation = toggle_leapfrog.toggle.blue_timestamp
   }
 }
 
@@ -32,11 +33,11 @@ resource "google_service_account_key" "key_green" {
   service_account_id = google_service_account.account.name
 
   keepers = {
-    rotation = toggle_leapfrog.toggle.green
+    rotation = toggle_leapfrog.toggle.green_timestamp
   }
 }
 
-output "active_key" {
+output "newest_key" {
   value = toggles_leapfrog.blue ? google_service_account_key.key_blue : google_service_account_key.key_green 
 }
 ```

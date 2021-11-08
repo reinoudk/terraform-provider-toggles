@@ -2,6 +2,9 @@
 
 Utility toggles for Terraform. Experimental so expect breaking changes.
 
+See the [documentation](https://registry.terraform.io/providers/reinoudk/toggles/latest/docs) for more information about
+usage.
+
 ## Build provider
 
 Run the following command to build the provider
