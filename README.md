@@ -7,7 +7,7 @@ Utility toggles for Terraform. Experimental so expect breaking changes.
 Run the following command to build the provider
 
 ```shell
-$ go build -o terraform-provider-toggle
+$ go build -o terraform-provider-toggles
 ```
 
 ## Test sample configuration
