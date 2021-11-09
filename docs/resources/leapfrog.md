@@ -52,6 +52,6 @@ cadence of toggling the output.
 In addition to all the arguments above, the following attributes are exported.
 
 - `blue_timestamp` - An UTC RFC333 timestamp denoting the last time the blue value was updated.
-- `green_timestamp` - An UTC RFC333 timestamp denoting the last time the blue value was updated.
+- `green_timestamp` - An UTC RFC333 timestamp denoting the last time the green value was updated.
 - `blue` - A boolean indicating whether the blue output is active (changed last). This is always the inverse of green.
 - `green` - A boolean indicating whether the green output is active (changed last). This is always the inverse of blue.
