@@ -21,24 +21,24 @@ resource "toggles_leapfrog" "toggle" {
   trigger = time_rotating.toggle_interval.rotation_rfc3339
 }
 
-resource "google_service_account_key" "key_blue" {
+resource "google_service_account_key" "key_alpha" {
   service_account_id = google_service_account.account.name
 
   keepers = {
-    rotation = toggle_leapfrog.toggle.blue_timestamp
+    rotation = toggle_leapfrog.toggle.alpha_timestamp
   }
 }
 
-resource "google_service_account_key" "key_green" {
+resource "google_service_account_key" "key_beta" {
   service_account_id = google_service_account.account.name
 
   keepers = {
-    rotation = toggle_leapfrog.toggle.green_timestamp
+    rotation = toggle_leapfrog.toggle.beta_timestamp
   }
 }
 
 output "newest_key" {
-  value = toggles_leapfrog.blue ? google_service_account_key.key_blue : google_service_account_key.key_green 
+  value = toggles_leapfrog.alpha ? google_service_account_key.key_alpha : google_service_account_key.key_beta 
 }
 ```
 
@@ -51,7 +51,7 @@ cadence of toggling the output.
 
 In addition to all the arguments above, the following attributes are exported.
 
-- `blue_timestamp` - An UTC RFC333 timestamp denoting the last time the blue value was updated.
-- `green_timestamp` - An UTC RFC333 timestamp denoting the last time the green value was updated.
-- `blue` - A boolean indicating whether the blue output is active (changed last). This is always the inverse of green.
-- `green` - A boolean indicating whether the green output is active (changed last). This is always the inverse of blue.
+- `alpha_timestamp` - An UTC RFC333 timestamp denoting the last time the alpha value was updated.
+- `beta_timestamp` - An UTC RFC333 timestamp denoting the last time the beta value was updated.
+- `alpha` - A boolean indicating whether the alpha output is active (changed last). This is always the inverse of beta.
+- `beta` - A boolean indicating whether the beta output is active (changed last). This is always the inverse of alpha.

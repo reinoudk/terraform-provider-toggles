@@ -18,17 +18,17 @@ resource "toggles_leapfrog" "toggle" {
 }
 
 output "latest_timestamp" {
-  value = toggles_leapfrog.toggle.blue ? toggles_leapfrog.toggle.blue_timestamp : toggles_leapfrog.toggle.green_timestamp
+  value = toggles_leapfrog.toggle.alpha ? toggles_leapfrog.toggle.alpha_timestamp : toggles_leapfrog.toggle.beta_timestamp
 }
 
 output "active_color" {
-  value = toggles_leapfrog.toggle.blue ? "blue" : "green"
+  value = toggles_leapfrog.toggle.alpha ? "alpha" : "beta"
 }
 
-output "blue_timestamp" {
-  value = toggles_leapfrog.toggle.blue_timestamp
+output "alpha_timestamp" {
+  value = toggles_leapfrog.toggle.alpha_timestamp
 }
 
-output "green_timestamp" {
-  value = toggles_leapfrog.toggle.green_timestamp
+output "beta_timestamp" {
+  value = toggles_leapfrog.toggle.beta_timestamp
 }

@@ -13,44 +13,44 @@ func TestAccLeapFrog(t *testing.T) {
 		ProviderFactories: testAccProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				// Applying the resource for the first time should set blue to active and initialize both timestamps
+				// Applying the resource for the first time should set alpha to active and initialize both timestamps
 				// with equal values.
 				Config: testAccLeapFrogResource("initial"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("toggles_leapfrog.test", "blue", "true"),
-					resource.TestCheckResourceAttr("toggles_leapfrog.test", "green", "false"),
-					resource.TestCheckResourceAttrPair("toggles_leapfrog.test", "blue_timestamp", "toggles_leapfrog.test", "green_timestamp"),
-					testAccValidRFC3339("toggles_leapfrog.test", "blue_timestamp"),
-					testAccValidRFC3339("toggles_leapfrog.test", "green_timestamp"),
+					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "true"),
+					resource.TestCheckResourceAttr("toggles_leapfrog.test", "beta", "false"),
+					resource.TestCheckResourceAttrPair("toggles_leapfrog.test", "alpha_timestamp", "toggles_leapfrog.test", "beta_timestamp"),
+					testAccValidRFC3339("toggles_leapfrog.test", "alpha_timestamp"),
+					testAccValidRFC3339("toggles_leapfrog.test", "beta_timestamp"),
 				),
 			},
 			{
 				// Re-applying the resource with an un-changed trigger value should have the same output.
 				Config: testAccLeapFrogResource("initial"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("toggles_leapfrog.test", "blue", "true"),
-					resource.TestCheckResourceAttr("toggles_leapfrog.test", "green", "false"),
-					resource.TestCheckResourceAttrPair("toggles_leapfrog.test", "blue_timestamp", "toggles_leapfrog.test", "green_timestamp"),
-					testAccValidRFC3339("toggles_leapfrog.test", "blue_timestamp"),
-					testAccValidRFC3339("toggles_leapfrog.test", "green_timestamp"),
+					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "true"),
+					resource.TestCheckResourceAttr("toggles_leapfrog.test", "beta", "false"),
+					resource.TestCheckResourceAttrPair("toggles_leapfrog.test", "alpha_timestamp", "toggles_leapfrog.test", "beta_timestamp"),
+					testAccValidRFC3339("toggles_leapfrog.test", "alpha_timestamp"),
+					testAccValidRFC3339("toggles_leapfrog.test", "beta_timestamp"),
 				),
 			},
 			{
-				// Re-applying the resource with a changed trigger value should mark green as active.
+				// Re-applying the resource with a changed trigger value should mark beta as active.
 				Config: testAccLeapFrogResource("change-1"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("toggles_leapfrog.test", "blue", "false"),
-					resource.TestCheckResourceAttr("toggles_leapfrog.test", "green", "true"),
-					testAccTimeAfter("toggles_leapfrog.test", "green_timestamp", "toggles_leapfrog.test", "blue_timestamp"),
+					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "false"),
+					resource.TestCheckResourceAttr("toggles_leapfrog.test", "beta", "true"),
+					testAccTimeAfter("toggles_leapfrog.test", "beta_timestamp", "toggles_leapfrog.test", "alpha_timestamp"),
 				),
 			},
 			{
-				// Re-applying the resource with a changed trigger value again should mark blue as active again.
+				// Re-applying the resource with a changed trigger value again should mark alpha as active again.
 				Config: testAccLeapFrogResource("change-2"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("toggles_leapfrog.test", "blue", "true"),
-					resource.TestCheckResourceAttr("toggles_leapfrog.test", "green", "false"),
-					testAccTimeAfter("toggles_leapfrog.test", "blue_timestamp", "toggles_leapfrog.test", "green_timestamp"),
+					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "true"),
+					resource.TestCheckResourceAttr("toggles_leapfrog.test", "beta", "false"),
+					testAccTimeAfter("toggles_leapfrog.test", "alpha_timestamp", "toggles_leapfrog.test", "beta_timestamp"),
 				),
 			},
 		},
