@@ -49,21 +49,21 @@ func resourceLeapfrogCreate(ctx context.Context, d *schema.ResourceData, m inter
 	var diags diag.Diagnostics
 
 	if err := d.Set("blue", true); err != nil {
-		diags = diag.Errorf("could not set blue", err)
+		diags = diag.Errorf("could not set blue: %+v", err)
 	}
 
 	if err := d.Set("green", false); err != nil {
-		diags = diag.Errorf("could not set green", err)
+		diags = diag.Errorf("could not set green: %+v", err)
 	}
 
 	now := time.Now().Format(time.RFC3339)
 
 	if err := d.Set("blue_timestamp", now); err != nil {
-		diags = diag.Errorf("could not set blue_timestamp", err)
+		diags = diag.Errorf("could not set blue_timestamp: %+v", err)
 	}
 
 	if err := d.Set("green_timestamp", now); err != nil {
-		diags = diag.Errorf("could not set green_timestamp", err)
+		diags = diag.Errorf("could not set green_timestamp: %+v", err)
 	}
 
 	// Not important
@@ -96,24 +96,24 @@ func resourceLeapfrogUpdate(ctx context.Context, d *schema.ResourceData, m inter
 	green = !green
 
 	if err := d.Set("blue", blue); err != nil {
-		diags = diag.Errorf("could not set blue", err)
+		diags = diag.Errorf("could not set blue: %+v", err)
 	}
 
 	if err := d.Set("green", green); err != nil {
-		diags = diag.Errorf("could not set green", err)
+		diags = diag.Errorf("could not set green: %+v", err)
 	}
 
 	now := time.Now().Format(time.RFC3339)
 
 	if blue {
 		if err := d.Set("blue_timestamp", now); err != nil {
-			diags = diag.Errorf("could not set blue_timestamp", err)
+			diags = diag.Errorf("could not set blue_timestamp: %+v", err)
 		}
 	}
 
 	if green {
 		if err := d.Set("green_timestamp", now); err != nil {
-			diags = diag.Errorf("could not set green_timestamp", err)
+			diags = diag.Errorf("could not set green_timestamp: %+v", err)
 		}
 	}
 
