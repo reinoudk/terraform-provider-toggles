@@ -68,3 +68,8 @@ func testAccTimeAfter(nameFirst, attrFirst, nameSecond, attrSecond string) resou
 		return nil
 	}
 }
+
+// The sleep function sleeps for 1 second, to allow time to pass
+func sleep() {
+	time.Sleep(1 * time.Second)
+}

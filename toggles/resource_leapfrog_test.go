@@ -13,6 +13,7 @@ func TestAccLeapfrog(t *testing.T) {
 			{
 				// Applying the resource for the first time should set alpha to active and initialize both timestamps
 				// with equal values.
+				PreConfig: sleep,
 				Config: testAccLeapfrogResource("initial"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "true"),
@@ -24,6 +25,7 @@ func TestAccLeapfrog(t *testing.T) {
 			},
 			{
 				// Re-applying the resource with an un-changed trigger value should have the same output.
+				PreConfig: sleep,
 				Config: testAccLeapfrogResource("initial"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "true"),
@@ -35,6 +37,7 @@ func TestAccLeapfrog(t *testing.T) {
 			},
 			{
 				// Re-applying the resource with a changed trigger value should mark beta as active.
+				PreConfig: sleep,
 				Config: testAccLeapfrogResource("change-1"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "false"),
@@ -44,6 +47,7 @@ func TestAccLeapfrog(t *testing.T) {
 			},
 			{
 				// Re-applying the resource with a changed trigger value again should mark alpha as active again.
+				PreConfig: sleep,
 				Config: testAccLeapfrogResource("change-2"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "true"),
