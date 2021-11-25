@@ -8,14 +8,14 @@ import (
 	"time"
 )
 
-func TestAccLeapFrog(t *testing.T) {
+func TestAccLeapfrog(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 		ProviderFactories: testAccProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				// Applying the resource for the first time should set alpha to active and initialize both timestamps
 				// with equal values.
-				Config: testAccLeapFrogResource("initial"),
+				Config: testAccLeapfrogResource("initial"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "true"),
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "beta", "false"),
@@ -26,7 +26,7 @@ func TestAccLeapFrog(t *testing.T) {
 			},
 			{
 				// Re-applying the resource with an un-changed trigger value should have the same output.
-				Config: testAccLeapFrogResource("initial"),
+				Config: testAccLeapfrogResource("initial"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "true"),
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "beta", "false"),
@@ -37,7 +37,7 @@ func TestAccLeapFrog(t *testing.T) {
 			},
 			{
 				// Re-applying the resource with a changed trigger value should mark beta as active.
-				Config: testAccLeapFrogResource("change-1"),
+				Config: testAccLeapfrogResource("change-1"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "false"),
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "beta", "true"),
@@ -46,7 +46,7 @@ func TestAccLeapFrog(t *testing.T) {
 			},
 			{
 				// Re-applying the resource with a changed trigger value again should mark alpha as active again.
-				Config: testAccLeapFrogResource("change-2"),
+				Config: testAccLeapfrogResource("change-2"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "alpha", "true"),
 					resource.TestCheckResourceAttr("toggles_leapfrog.test", "beta", "false"),
@@ -57,7 +57,7 @@ func TestAccLeapFrog(t *testing.T) {
 	})
 }
 
-func testAccLeapFrogResource (trigger string) string {
+func testAccLeapfrogResource (trigger string) string {
 	return fmt.Sprintf(`
 resource "toggles_leapfrog" "test" {
   trigger = "%s"
