@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'
+
+      - name: Unit tests
+        run: make test
+
+      # Note: we don't touch external infrastructure so this is OK.
+      - name: Acceptance tests
+        run: make testacc
