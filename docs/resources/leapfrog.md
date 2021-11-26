@@ -18,34 +18,36 @@ resource "time_rotating" "toggle_interval" {
 }
 
 resource "toggles_leapfrog" "toggle" {
+  # Optional, remove to toggle on each apply
   trigger = time_rotating.toggle_interval.rotation_rfc3339
 }
 
-resource "google_service_account_key" "key_alpha" {
+resource "google_service_account_key" "alpha" {
   service_account_id = google_service_account.account.name
 
   keepers = {
-    rotation = toggle_leapfrog.toggle.alpha_timestamp
+    alpha = toggles_leapfrog.toggle.alpha_timestamp
   }
 }
 
-resource "google_service_account_key" "key_beta" {
+resource "google_service_account_key" "beta" {
   service_account_id = google_service_account.account.name
 
   keepers = {
-    rotation = toggle_leapfrog.toggle.beta_timestamp
+    beta = toggles_leapfrog.toggle.beta_timestamp
   }
 }
 
-output "newest_key" {
-  value = toggles_leapfrog.alpha ? google_service_account_key.key_alpha : google_service_account_key.key_beta 
+output "current_key" {
+  value = toggles_leapfrog.toggle.alpha ? google_service_account_key.alpha : google_service_account_key.beta
+  sensitive = true
 }
 ```
 
 ## Argument Reference
 
 - `trigger` - (Optional) An arbitrary string value that, when changed, toggles the output. Use this to set the min
-cadence of toggling the output.
+cadence of toggling the output. If left empty, the toggle is switched on each apply.
 
 ## Attributes Reference
 
