@@ -12,8 +12,7 @@ jobs:
         id: import_gpg
         # uses: paultyng/ghaction-import-gpg@v2.1.0
         run: |
-          export GPG_TTY=$(tty)
-          echo -e "$GPG_PRIVATE_KEY" | gpg --import
+          echo -e "$GPG_PRIVATE_KEY" | gpg --import --no-tty --batch --passphrase "$PASSPHRASE"
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
