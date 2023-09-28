@@ -1,0 +1,19 @@
+name: Release
+
+on:
+  push:
+    branches: reinoudk-patch-1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Import GPG key
+        id: import_gpg
+        uses: paultyng/ghaction-import-gpg@v2.1.0
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
+
+      - name: GPG key ID
+        run: gpg --list-signatures
